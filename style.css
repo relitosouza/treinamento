@@ -146,3 +146,57 @@
     .post-content { font-size: 0.85rem; }
     .update-bar { padding: 15px; font-size: 1rem; } /* Botão maior para o dedo */
 }
+/* --- ESTILOS DA CAPA (SLIDE 1) --- */
+
+.intro-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15); /* Sombra suave */
+    max-width: 600px;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    border-top: 8px solid #003366; /* Detalhe azul no topo */
+    text-align: center;
+}
+
+.intro-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    background: #f0f4f8;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.intro-box h1 {
+    font-size: 2.2rem !important;
+    margin-bottom: 10px !important;
+    color: #003366;
+}
+
+.intro-box h3 {
+    font-size: 1.2rem !important;
+    color: #1877f2;
+    font-weight: normal;
+}
+
+.swipe-hint {
+    margin-top: 30px;
+    background: #e7f3ff;
+    color: #1877f2;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+    animation: pulse 2s infinite;
+}
+
+/* Animaçãozinha para a dica de avançar */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
