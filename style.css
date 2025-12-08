@@ -1,31 +1,25 @@
-/* --- 1. RESET, BASES E CORREÇÕES --- */
+/* =========================================
+   1. RESET, BASES E CORREÇÕES GLOBAIS
+   ========================================= */
 
 /* Bloqueia a seleção de texto para evitar o "fundo azul" ao clicar rápido */
 body, .reveal {
-    cursor: pointer; /* Mãozinha para indicar clique */
+    cursor: pointer; /* Mãozinha em tudo para indicar navegação */
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none;    /* Firefox */
     -ms-user-select: none;     /* IE10+/Edge */
     user-select: none;         /* Padrão */
     background-color: #fff;    /* Garante fundo branco */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Permite selecionar apenas os códigos dos relatórios (se o usuário quiser copiar manualmente) */
-.report-badge {
-    user-select: text; 
-    -webkit-user-select: text;
-}
-
+/* Títulos padrão do Reveal */
 .reveal h1, .reveal h2 { 
     color: #003366; 
     text-transform: none; 
 }
 
-.reveal { 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-}
-
-/* Toast Notification (Aviso Flutuante) */
+/* Toast Notification (Aviso Flutuante de "Copiado") */
 .toast-msg {
     position: fixed; 
     bottom: 80px; 
@@ -80,7 +74,7 @@ body, .reveal {
     margin-top: 0;
 }
 
-/* Botão de Início */
+/* Botão de Início na Capa */
 .swipe-hint {
     margin-top: 30px;
     background: #e7f3ff;
@@ -90,7 +84,7 @@ body, .reveal {
     font-size: 1rem;
     font-weight: bold;
     display: inline-block;
-    cursor: pointer; /* Mãozinha de clique */
+    cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 4px 6px rgba(24, 119, 242, 0.2);
     border: 2px solid transparent;
@@ -242,7 +236,7 @@ body, .reveal {
     margin-bottom: 15px; 
 }
 
-/* Badge de Código */
+/* Badge de Código (Permite seleção de texto aqui) */
 .report-badge {
     display: inline-block; 
     background: #e7f3ff; 
@@ -254,6 +248,10 @@ body, .reveal {
     cursor: pointer; 
     margin-top: 8px;
     border: 1px solid transparent;
+    
+    /* Exceção: permite selecionar o código se o usuário quiser */
+    user-select: text; 
+    -webkit-user-select: text;
 }
 .report-badge:hover { 
     background: #dbe7f2; 
@@ -278,7 +276,7 @@ body, .reveal {
 }
 .action-btn:hover { background-color: #f0f2f5; }
 
-/* Barra de Atualização */
+/* Barra de Atualização (Botão Carregar) */
 .update-bar {
     background: #e7f3ff; 
     color: #1877f2; 
@@ -304,13 +302,13 @@ body, .reveal {
 /* TABLET E CELULAR (< 900px) */
 @media (max-width: 900px) {
     .app-body {
-        grid-template-columns: 1fr; /* Coluna única */
+        grid-template-columns: 1fr; /* Coluna única (só feed) */
     }
     .sidebar { 
         display: none; /* Esconde laterais */
     }
     .app-container {
-        height: 92vh; /* Aumenta altura */
+        height: 92vh; /* Aumenta altura no celular */
         border-radius: 0; /* Remove bordas arredondadas */
         border: none;
     }
