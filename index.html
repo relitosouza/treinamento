@@ -253,3 +253,131 @@
                             </div>
 
                             <div class="social-card" id="post3">
+                                <div class="card-header">
+                                    <div class="avatar" style="background:#dc3545;">T</div>
+                                    <div class="user-info">
+                                        <h4>Tesouraria & Contabilidade</h4>
+                                        <span>2 min atrás</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    Empenho emitido! O fornecedor já aceitou a Nota de Empenho. O compromisso jurídico está firmado. 🤝
+                                    <br><br>
+                                    Conferência oficial via <span class="report-tag">#CER45000</span> (Detalhado).
+                                </div>
+                                <div class="card-footer">
+                                    <div class="btn-action">👍 Curtir</div>
+                                    <div class="btn-action">💬 Comentar</div>
+                                </div>
+                            </div>
+
+                            <div class="social-card" id="post4">
+                                <div class="card-header">
+                                    <div class="avatar" style="background:#6610f2;">A</div>
+                                    <div class="user-info">
+                                        <h4>Almoxarifado Central</h4>
+                                        <span>Agora mesmo</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    Recebemos os materiais! ✅ Nota fiscal conferida e atestada. Podem processar a liquidação para pagamento.
+                                    <br><br>
+                                    Relatórios: <span class="report-tag">#CER51000</span> e <span class="report-tag">#CER06600</span>.
+                                </div>
+                                <div class="card-footer">
+                                    <div class="btn-action" style="color:#198754; font-weight:bold;">💲 Pagar Agora</div>
+                                </div>
+                            </div>
+                            
+                            <div id="endMsg" style="text-align:center; color:#888; margin-top:20px; display:none;">
+                                ✔️ Você está atualizado!
+                            </div>
+
+                        </div>
+
+                        <div class="sidebar-right">
+                            <div class="widget-box">
+                                <div class="widget-title">Trending Topics (Relatórios)</div>
+                                <div class="trend-item">
+                                    <span class="trend-topic">1. Restos a Pagar</span>
+                                    <span class="trend-meta">Alta procura no fim de ano</span>
+                                </div>
+                                <div class="trend-item">
+                                    <span class="trend-topic">2. Superávit Financeiro</span>
+                                    <span class="trend-meta">Contabilidade está comentando</span>
+                                </div>
+                                <div class="trend-item">
+                                    <span class="trend-topic">3. LRF</span>
+                                    <span class="trend-meta">Assunto do momento</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            controls: false, // Esconde controles padrão para focar no layout
+            progress: false,
+            center: true,
+            hash: false,
+            transition: 'fade',
+            width: 1200, // Aumenta largura do palco do Reveal
+            height: 700
+        });
+
+        $(document).ready(function() {
+            var currentStep = 0;
+            var totalSteps = 4;
+
+            // Ao clicar na barra azul "Existem novas atualizações"
+            $('#btnLoadMore').click(function() {
+                currentStep++;
+                
+                if (currentStep <= totalSteps) {
+                    var selector = '#post' + currentStep;
+                    
+                    // Animação SlideDown
+                    $(selector).slideDown(600);
+                    
+                    // Scroll automático para manter o foco
+                    var feed = $('#mainFeed');
+                    feed.animate({ scrollTop: feed.prop("scrollHeight") }, 800);
+
+                    // Atualiza texto do botão
+                    if (currentStep < totalSteps) {
+                        $(this).text("↑ Carregar próxima fase (" + currentStep + "/4)...");
+                    } else {
+                        $(this).fadeOut(); // Some o botão no fim
+                        $('#endMsg').fadeIn();
+                    }
+                }
+            });
+
+            // Efeito de Copiar Hashtags
+            $('.report-tag').click(function() {
+                var text = $(this).text().replace('#', ''); // Remove o # para copiar só o código
+                navigator.clipboard.writeText(text);
+                $('#copyToast').fadeIn().delay(1000).fadeOut();
+            });
+            
+            // Efeito Hover/Click nos botões de ação
+            $('.btn-action').click(function() {
+                if($(this).css('color') === 'rgb(101, 103, 107)') { // Cinza
+                    $(this).css('color', '#1877f2'); // Fica azul
+                } else {
+                    $(this).css('color', '#65676b'); // Volta cinza
+                }
+            });
+        });
+    </script>
+</body>
+</html>
