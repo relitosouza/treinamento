@@ -1,6 +1,16 @@
 /* =========================================
    1. RESET E BASES
    ========================================= */
+/* Adicione no topo do arquivo style.css */
+body {
+    cursor: pointer; /* Indica que a tela toda é clicável */
+}
+
+/* Evita que botões internos mudem o cursor duas vezes */
+.action-btn, .report-badge, .menu-item {
+    cursor: pointer;
+}
+
 .reveal h1, .reveal h2 { 
     color: #003366; 
     text-transform: none; 
