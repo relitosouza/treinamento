@@ -1,12 +1,10 @@
 // Configuração do Reveal.js
 Reveal.initialize({
-    controls: false, // Esconde as setas padrão (usaremos nossos botões)
-    progress: false, // Esconde barra de progresso
+    controls: false, // Sem setas
+    progress: false,
     center: true,
     hash: false,
     transition: 'slide',
-    
-    // Configurações cruciais para que o "App" ocupe a tela toda sem deformar
     width: "100%",
     height: "100%",
     margin: 0,
@@ -16,14 +14,9 @@ Reveal.initialize({
 
 $(document).ready(function() {
     
-    // --- 1. LÓGICA DA CAPA (SLIDE 1) ---
-    // Ao clicar no botão "Iniciar App", vai para o próximo slide
-    $('#btnStart').click(function() {
-        Reveal.next();
-    });
-
-    // --- 2. LÓGICA DO FEED (SLIDE 2) ---
+    // Variáveis de Estado do Feed
     var step = 0;
+    var totalSteps = 4;
     var titles = [
         "Carregar fase: RESERVA (2/4)", 
         "Carregar fase: EMPENHO (3/4)", 
@@ -31,43 +24,68 @@ $(document).ready(function() {
         "Fluxo concluído! ✅"
     ];
 
-    // Botão "Carregar Próxima Fase"
-    $('#btnLoadMore').click(function() {
+    // --- FUNÇÃO PARA CARREGAR O PRÓXIMO POST ---
+    function loadNextPost() {
         step++;
         
-        if (step <= 4) {
+        if (step <= totalSteps) {
             var card = $('#post' + step);
             
-            // Exibe o card
+            // Exibe o card com animação
             card.show(); 
             
-            // Scroll suave para o final do feed
+            // Scroll suave para mostrar o novo post
             var container = $('#feedArea');
             container.animate({
                 scrollTop: container.prop("scrollHeight")
             }, 800);
 
-            // Atualiza o texto do botão ou finaliza
-            if (step < 4) {
-                $(this).text("🔔 " + titles[step-1]);
+            // Atualiza texto da barra de status (apenas visual agora)
+            if (step < totalSteps) {
+                $('#btnLoadMore').text("🔔 " + titles[step-1]);
             } else {
-                $(this).slideUp(); // Some o botão
-                $('#endMessage').fadeIn(); // Mostra mensagem final
+                $('#btnLoadMore').slideUp(); // Some a barra no final
+                $('#endMessage').fadeIn();
+            }
+        }
+    }
+
+    // --- CLIQUE GLOBAL NA TELA (NAVEGAÇÃO) ---
+    $(document).click(function(event) {
+        
+        // 1. Verifica se o clique foi em um elemento interativo (Botão/Badge)
+        // Se foi, NÃO avançamos o slide (paramos a função aqui)
+        if ($(event.target).closest('.action-btn, .report-badge, .menu-item, .widget').length) {
+            return; 
+        }
+
+        // 2. Verifica em qual slide estamos
+        var currentSlide = Reveal.getCurrentSlide();
+        
+        // --- CENÁRIO A: Estamos na Capa (Slide 1) ---
+        // Verifica se existe a caixa de introdução no slide atual
+        if ($(currentSlide).find('.intro-box').length > 0) {
+            Reveal.next(); // Vai para o próximo slide (O App)
+        }
+        
+        // --- CENÁRIO B: Estamos no App (Slide 2) ---
+        // Verifica se existe o container do app
+        else if ($(currentSlide).find('.app-container').length > 0) {
+            // Se o feed ainda não acabou, carrega o próximo post
+            if (step < totalSteps) {
+                loadNextPost();
             }
         }
     });
 
-    // --- 3. INTERAÇÕES DE UI ---
+    // --- INTERAÇÕES ESPECÍFICAS (COPIAR E CURTIR) ---
     
-    // Copiar Código ao clicar
+    // Copiar Código
     $('.report-badge').click(function() {
         var code = $(this).text();
         navigator.clipboard.writeText(code);
+        $('#toast').text("Código " + code + " copiado!").fadeIn().delay(1500).fadeOut();
         
-        // Exibe Toast Notification
-        $('#toast').text("Código " + code + " copiado!").fadeIn().delay(2000).fadeOut();
-        
-        // Efeito visual de clique
         $(this).css('background-color', '#d1e7dd').css('color', '#0f5132');
         var self = $(this);
         setTimeout(function(){
@@ -78,14 +96,13 @@ $(document).ready(function() {
     // Botões de Ação (Curtir/Comentar)
     $('.action-btn').click(function() {
         var text = $(this).text();
-        
-        // Lógica simples de Toggle (Ativar/Desativar)
         if(text.includes('Curtir') || text.includes('Amei') || text.includes('Útil')) {
-            if ($(this).css('color') === 'rgb(101, 103, 107)') { // Se for cinza
-                $(this).css('color', '#e0245e').css('font-weight', 'bold'); // Vira rosa/vermelho
+            if ($(this).css('color') === 'rgb(101, 103, 107)') { 
+                $(this).css('color', '#e0245e').css('font-weight', 'bold'); 
             } else {
-                $(this).css('color', '#65676b').css('font-weight', '600'); // Volta para cinza
+                $(this).css('color', '#65676b').css('font-weight', '600'); 
             }
         }
     });
+
 });
