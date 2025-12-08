@@ -3,209 +3,288 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Treinamento SMARAPD - Execução e Controle</title>
+    <title>Treinamento SMARAPD - Social Feed</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
     
     <style>
-        /* Estilos Globais */
-        .reveal h1, .reveal h2, .reveal h3 {
-            text-transform: none;
+        /* --- ESTILOS GERAIS --- */
+        .reveal h1, .reveal h2 {
             color: #003366; 
-        }
-        .reveal h2 { font-size: 1.6em; }
-        
-        /* Estilos do Fluxo Horizontal (Slide 2) */
-        .flow-container {
-            display: flex;
-            flex-direction: row; /* Mudança para Horizontal */
-            justify-content: center;
-            align-items: flex-start;
-            gap: 5px;
-            margin-top: 20px;
+            text-transform: none;
         }
 
-        .flow-step {
+        /* --- ESTILO "SOCIAL FEED" (CELULAR) --- */
+        .phone-frame {
+            width: 450px; /* Largura de celular */
+            height: 600px;
+            margin: 0 auto;
+            background-color: #f5f8fa; /* Cor de fundo estilo Twitter/FB */
+            border: 8px solid #333;
+            border-radius: 30px;
+            overflow-y: auto; /* Permite rolar se o feed for longo */
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            text-align: left;
+        }
+
+        /* Esconder barra de rolagem para ficar mais bonito */
+        .phone-frame::-webkit-scrollbar { width: 5px; }
+        .phone-frame::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; }
+
+        /* Cabeçalho do App */
+        .app-header {
             background: #003366;
             color: white;
-            padding: 10px;
-            border-radius: 8px;
-            width: 22%; /* Largura fixa para caber na tela */
-            font-size: 0.55em; /* Fonte menor para caber os relatórios */
-            text-align: left;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            display: none; /* Começa oculto para animação */
-            position: relative;
-        }
-
-        .flow-title {
-            font-size: 1.4em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            padding-bottom: 5px;
-            display: block;
-        }
-
-        .report-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .report-list li {
-            margin-bottom: 4px;
-            line-height: 1.2;
-        }
-
-        .code-tag {
-            color: #ffcc00; /* Amarelo para destacar o código */
-            font-weight: bold;
-            font-family: monospace;
-        }
-
-        .arrow { 
-            font-size: 2em; 
-            color: #005b96; 
-            align-self: center;
-            margin: 0 5px;
-            display: none; /* Começa oculto */
-        }
-
-        /* Botão de Animação */
-        .btn-animate {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 0 #218838;
-            transition: all 0.1s;
-        }
-        .btn-animate:active {
-            box-shadow: 0 2px 0 #218838;
-            transform: translateY(2px);
-        }
-
-        /* Outros Estilos (Slides seguintes) */
-        .report-box {
-            background-color: #f0f4f8;
-            border-left: 5px solid #003366;
             padding: 15px;
-            margin-bottom: 20px;
-            text-align: left;
-            font-size: 0.8em;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .report-code {
+        .app-time { font-size: 12px; font-weight: bold; }
+
+        /* O Post (Card) */
+        .social-card {
+            background: white;
+            margin: 15px 10px;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: none; /* Começa oculto para animação */
+            border: 1px solid #e1e8ed;
+        }
+
+        /* Cabeçalho do Post (Avatar + Nome) */
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 10px;
+            color: white;
+        }
+        .user-info h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #14171a;
             font-weight: bold;
-            color: #d9534f;
-            cursor: copy;
         }
-        
-        /* Toast Notification */
+        .user-info span {
+            font-size: 12px;
+            color: #657786;
+        }
+
+        /* Conteúdo do Post */
+        .card-body {
+            font-size: 14px;
+            color: #14171a;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        /* "Hashtags" e Códigos */
+        .report-tag {
+            display: inline-block;
+            background-color: #e8f5fd; /* Azulzinho claro */
+            color: #1da1f2; /* Azul Twitter */
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px 0;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .report-tag:hover {
+            border: 1px solid #1da1f2;
+            background-color: #d0eefd;
+        }
+        .report-desc {
+            font-size: 0.9em;
+            color: #555;
+            margin-left: 5px;
+        }
+
+        /* Rodapé do Post (Likes/Comments) */
+        .card-footer {
+            border-top: 1px solid #e1e8ed;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-around;
+            color: #657786;
+            font-size: 12px;
+        }
+        .action-icon { cursor: pointer; }
+        .action-icon:hover { color: #e0245e; } /* Rosa Like */
+
+        /* Botão Flutuante (FAB) */
+        .fab-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #1da1f2;
+            color: white;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            z-index: 20;
+        }
+        .fab-btn:hover { transform: scale(1.1); background-color: #0d8ddb; }
+        .fab-btn:active { transform: scale(0.9); }
+
+        /* Toast */
         .toast-msg {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #003366;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0,0,0,0.8);
             color: white;
-            padding: 15px;
-            border-radius: 5px;
-            z-index: 9999;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 16px;
             display: none;
+            z-index: 9999;
         }
     </style>
 </head>
 <body>
-    
-    <div id="copyToast" class="toast-msg">Copiado!</div>
+
+    <div id="copyToast" class="toast-msg">Código copiado! 📋</div>
 
     <div class="reveal">
         <div class="slides">
 
             <section>
-                <h1>Relatórios de Execução</h1>
-                <h3>Orçamentária e Financeira</h3>
-                <small>Treinamento Operacional - SMARAPD</small>
+                <h1>Execução Financeira</h1>
+                <h3>Visualização Estilo Feed</h3>
+                <p>Navegue pelo slide seguinte como se fosse uma Rede Social.</p>
             </section>
 
             <section>
-                <h2>O Fluxo da Despesa</h2>
-                
-                <button id="startFlow" class="btn-animate">▶ Visualizar Passo a Passo</button>
-
-                <div class="flow-container">
+                <div class="phone-frame" id="feedContainer">
                     
-                    <div class="flow-step" id="step1">
-                        <span class="flow-title">LOA (Fixação)</span>
-                        <p>Planejamento inicial aprovado em lei.</p>
-                        <ul class="report-list">
-                            <li><span class="code-tag">COV00300</span> LOA Despesa</li>
-                        </ul>
+                    <div class="app-header">
+                        <span>FinançasGram</span>
+                        <span class="app-time">16:40</span>
                     </div>
 
-                    <div class="arrow" id="arrow1">➔</div>
+                    <button id="btnNextPost" class="fab-btn" title="Novo Post">⬇</button>
 
-                    <div class="flow-step" id="step2">
-                        <span class="flow-title">Reserva</span>
-                        <ul class="report-list">
-                            <li><span class="code-tag">CER02900</span> Reservas e Movimentos</li>
-                            <li><span class="code-tag">CER04400</span> Movimento de Reservas</li>
-                            <li><span class="code-tag">CER06300</span> Dem. Execução Despesa</li>
-                        </ul>
+                    <div class="social-card" id="post1">
+                        <div class="card-header">
+                            <div class="avatar" style="background:#ff9800;">L</div>
+                            <div class="user-info">
+                                <h4>Lei Orçamentária</h4>
+                                <span>@planejamento • 1min</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            Começando o ano! O orçamento foi aprovado e fixado. 🏛️<br><br>
+                            <div>
+                                <span class="report-tag">COV00300</span> <span class="report-desc">LOA Despesa</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-icon">❤️ 1.2k Likes</span>
+                            <span>💬 Comentários</span>
+                        </div>
                     </div>
 
-                    <div class="arrow" id="arrow2">➔</div>
-
-                    <div class="flow-step" id="step3">
-                        <span class="flow-title">Empenho</span>
-                        <ul class="report-list">
-                            <li><span class="code-tag">CER05300</span> Movimento de Empenhos</li>
-                            <li><span class="code-tag">CER45000</span> Empenhos e Movimentos</li>
-                        </ul>
+                    <div class="social-card" id="post2">
+                        <div class="card-header">
+                            <div class="avatar" style="background:#2196f3;">R</div>
+                            <div class="user-info">
+                                <h4>Reserva de Dotação</h4>
+                                <span>@compras • Agora</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            Segura esse saldo! Antes de licitar, precisamos bloquear a dotação. 🔒<br><br>
+                            <div><span class="report-tag">CER02900</span> <span class="report-desc">Reservas e Movimentos</span></div>
+                            <div><span class="report-tag">CER04400</span> <span class="report-desc">Movimento do dia</span></div>
+                            <div><span class="report-tag">CER06300</span> <span class="report-desc">Dem. Execução</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-icon">❤️ 850 Likes</span>
+                            <span>💬 Compartilhar</span>
+                        </div>
                     </div>
 
-                    <div class="arrow" id="arrow3">➔</div>
+                    <div class="social-card" id="post3">
+                        <div class="card-header">
+                            <div class="avatar" style="background:#4caf50;">E</div>
+                            <div class="user-info">
+                                <h4>Empenho</h4>
+                                <span>@contabilidade • Agora mesmo</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            Contrato assinado! A obrigação com o fornecedor foi criada. ✍️💰<br><br>
+                            <div><span class="report-tag">CER05300</span> <span class="report-desc">Movimento Empenhos</span></div>
+                            <div><span class="report-tag">CER45000</span> <span class="report-desc">Empenhos Detalhados</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-icon">❤️ 2.5k Likes</span>
+                            <span>💬 Salvar</span>
+                        </div>
+                    </div>
 
-                    <div class="flow-step" id="step4">
-                        <span class="flow-title">Liquidação</span>
-                        <ul class="report-list">
-                            <li><span class="code-tag">CER51000</span> Liquidação e Movimentos</li>
-                            <li><span class="code-tag">CER06600</span> Movimento Liquidações</li>
-                        </ul>
+                    <div class="social-card" id="post4">
+                        <div class="card-header">
+                            <div class="avatar" style="background:#9c27b0;">L</div>
+                            <div class="user-info">
+                                <h4>Liquidação</h4>
+                                <span>@almoxarifado • Ao vivo</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            Mercadoria entregue e conferida! ✅ Pode mandar pagar.<br><br>
+                            <div><span class="report-tag">CER51000</span> <span class="report-desc">Liquidação e Movimentos</span></div>
+                            <div><span class="report-tag">CER06600</span> <span class="report-desc">Movimento Liquidações</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-icon">❤️ 5k Likes</span>
+                            <span>💬 Pagar</span>
+                        </div>
+                    </div>
+
+                    <div id="endFeed" style="text-align:center; color:#999; padding:20px; display:none;">
+                        ✓ Você viu tudo por hoje
                     </div>
 
                 </div>
             </section>
 
             <section>
-                <h2>Detalhando: Reservas</h2>
-                <div class="report-box">
-                    <span class="report-code">CER02900</span> - Reservas e seus Movimentos<br>
-                    <small>Essencial para ver o saldo disponível antes de licitar.</small>
+                <h2>Detalhes Técnicos</h2>
+                <p>Cada "Post" representa uma fase crítica do sistema SMARAPD.</p>
+                <div style="background:#e8f5fd; padding:15px; border-radius:10px; color:#003366;">
+                    <strong>Dica:</strong> Clique nos códigos azuis no slide anterior para copiar.
                 </div>
-                <div class="report-box">
-                    <span class="report-code">CER06300</span> - Dem. Execução<br>
-                    <small>Visão gerencial macro da despesa.</small>
-                </div>
-            </section>
-
-            <section>
-                <h2>Detalhando: Empenho</h2>
-                <div class="report-box">
-                    <span class="report-code">CER45000</span> - Empenhos e Movimentos<br>
-                    <small>O relatório mais completo do sistema. Cruza número do empenho com fornecedor e valores.</small>
-                </div>
-            </section>
-
-            <section>
-                <h2>Dúvidas?</h2>
-                <small>Equipe de Finanças</small>
             </section>
 
         </div>
@@ -225,34 +304,61 @@
 
         $(document).ready(function() {
             
-            // Lógica da Animação do Slide 2
-            $('#startFlow').click(function() {
-                // Reinicia (esconde tudo caso clique de novo)
-                $('.flow-step, .arrow').hide();
-                $(this).fadeOut(); // Esconde o botão
+            // Variável para controlar qual post está sendo mostrado
+            var currentStep = 0;
+            var totalSteps = 4;
 
-                // Sequência de Animação (Corrente)
-                // Tempo em milissegundos (600ms)
-                $('#step1').fadeIn(600, function() {
-                    $('#arrow1').fadeIn(600, function() {
-                        $('#step2').fadeIn(600, function() {
-                            $('#arrow2').fadeIn(600, function() {
-                                $('#step3').fadeIn(600, function() {
-                                    $('#arrow3').fadeIn(600, function() {
-                                        $('#step4').fadeIn(600);
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
+            // Lógica do Botão Flutuante (Next Post)
+            $('#btnNextPost').click(function() {
+                currentStep++;
+
+                if (currentStep <= totalSteps) {
+                    // Seleciona o card pelo ID (post1, post2...)
+                    var selector = '#post' + currentStep;
+                    
+                    // Animação SlideDown (parece que o feed está descendo/crescendo)
+                    $(selector).slideDown(600);
+                    
+                    // Scroll suave para o final do container (celular)
+                    var container = $('#feedContainer');
+                    container.animate({
+                        scrollTop: container.prop("scrollHeight")
+                    }, 800);
+
+                    // Se for o último, muda o ícone ou esconde o botão
+                    if (currentStep === totalSteps) {
+                        $('#endFeed').fadeIn();
+                        $(this).fadeOut(); // Esconde o botão no final
+                    }
+                }
             });
 
-            // Funcionalidade extra: Copiar código ao clicar (mantida do anterior)
-            $('.code-tag, .report-code').click(function() {
+            // Lógica de Copiar Código (Ao clicar nas tags azuis)
+            $('.report-tag').click(function(e) {
+                e.stopPropagation(); // Evita bugs de clique
+                var code = $(this).text();
+                
+                // Animação de clique
+                $(this).css('transform', 'scale(0.95)');
+                setTimeout(() => $(this).css('transform', 'scale(1)'), 100);
+
+                // Toast
+                $('#copyToast').text(code + ' copiado!').fadeIn(200).delay(1000).fadeOut(200);
+                
+                // Copiar para clipboard
+                navigator.clipboard.writeText(code);
+            });
+
+            // Animaçãozinha de Like
+            $('.action-icon').click(function() {
                 var text = $(this).text();
-                $('#copyToast').text(text + ' copiado!').fadeIn().delay(1000).fadeOut();
-                navigator.clipboard.writeText(text);
+                if(text.includes('❤️')) {
+                    $(this).css('color', '#657786'); // Descurtir
+                } else {
+                    $(this).css('color', '#e0245e'); // Curtir
+                    // Efeito de pulso
+                    $(this).fadeOut(100).fadeIn(100);
+                }
             });
 
         });
