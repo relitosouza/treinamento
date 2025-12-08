@@ -1,14 +1,19 @@
-/* =========================================
-   1. RESET E BASES
-   ========================================= */
-/* Adicione no topo do arquivo style.css */
-body {
-    cursor: pointer; /* Indica que a tela toda é clicável */
+/* --- 1. RESET, BASES E CORREÇÕES --- */
+
+/* Bloqueia a seleção de texto para evitar o "fundo azul" ao clicar rápido */
+body, .reveal {
+    cursor: pointer; /* Mãozinha para indicar clique */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Padrão */
+    background-color: #fff;    /* Garante fundo branco */
 }
 
-/* Evita que botões internos mudem o cursor duas vezes */
-.action-btn, .report-badge, .menu-item {
-    cursor: pointer;
+/* Permite selecionar apenas os códigos dos relatórios (se o usuário quiser copiar manualmente) */
+.report-badge {
+    user-select: text; 
+    -webkit-user-select: text;
 }
 
 .reveal h1, .reveal h2 { 
