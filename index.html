@@ -9,136 +9,121 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
     
     <style>
-        /* Custom Styles for the Presentation */
+        /* Estilos Globais */
         .reveal h1, .reveal h2, .reveal h3 {
             text-transform: none;
             color: #003366; 
         }
-        .reveal h2 { font-size: 1.8em; }
-        .reveal h3 { font-size: 1.3em; color: #005b96; }
+        .reveal h2 { font-size: 1.6em; }
         
-        .container {
+        /* Estilos do Fluxo Horizontal (Slide 2) */
+        .flow-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: row; /* Mudança para Horizontal */
+            justify-content: center;
             align-items: flex-start;
-        }
-        
-        .col {
-            flex: 1;
-            padding: 10px;
+            gap: 5px;
+            margin-top: 20px;
         }
 
+        .flow-step {
+            background: #003366;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            width: 22%; /* Largura fixa para caber na tela */
+            font-size: 0.55em; /* Fonte menor para caber os relatórios */
+            text-align: left;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            display: none; /* Começa oculto para animação */
+            position: relative;
+        }
+
+        .flow-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+            display: block;
+        }
+
+        .report-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .report-list li {
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .code-tag {
+            color: #ffcc00; /* Amarelo para destacar o código */
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        .arrow { 
+            font-size: 2em; 
+            color: #005b96; 
+            align-self: center;
+            margin: 0 5px;
+            display: none; /* Começa oculto */
+        }
+
+        /* Botão de Animação */
+        .btn-animate {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 0 #218838;
+            transition: all 0.1s;
+        }
+        .btn-animate:active {
+            box-shadow: 0 2px 0 #218838;
+            transform: translateY(2px);
+        }
+
+        /* Outros Estilos (Slides seguintes) */
         .report-box {
             background-color: #f0f4f8;
             border-left: 5px solid #003366;
             padding: 15px;
             margin-bottom: 20px;
             text-align: left;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-            cursor: pointer;
+            font-size: 0.8em;
         }
-
-        /* Efeito Hover jQuery */
-        .report-box:hover {
-            transform: scale(1.02);
-            background-color: #e1e9f1;
-        }
-
         .report-code {
             font-weight: bold;
             color: #d9534f;
-            font-family: monospace;
-            font-size: 1.1em;
-            cursor: copy; /* Indica que é clicável */
-            padding: 2px 5px;
-            border-radius: 4px;
-            border: 1px dashed transparent;
-        }
-
-        .report-code:hover {
-            background-color: #ffe6e6;
-            border-color: #d9534f;
-        }
-
-        .note-box {
-            font-size: 0.6em;
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 5px;
-            text-align: left;
-        }
-
-        .flow-step {
-            display: inline-block;
-            background: #003366;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 5px;
-            margin: 10px;
-            font-weight: bold;
-            cursor: pointer;
+            cursor: copy;
         }
         
-        .arrow { font-size: 1.5em; color: #666; vertical-align: middle; }
-
-        /* Estilos para elementos jQuery */
+        /* Toast Notification */
         .toast-msg {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #28a745;
+            background-color: #003366;
             color: white;
             padding: 15px;
             border-radius: 5px;
             z-index: 9999;
-            display: none; /* jQuery vai controlar isso */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        /* Estilo do input de filtro */
-        #searchView {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 2px solid #003366;
-            border-radius: 5px;
-            font-size: 0.7em;
-        }
-
-        /* Estilo Accordion */
-        .accordion-item {
-            background-color: #eee;
-            color: #444;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            transition: 0.4s;
-            margin-bottom: 5px;
-            border-radius: 5px;
-        }
-        .active-accordion, .accordion-item:hover {
-            background-color: #ccc;
-        }
-        .accordion-panel {
-            padding: 0 18px;
-            display: none; /* jQuery vai mostrar */
-            background-color: white;
-            overflow: hidden;
-            border-left: 3px solid #003366;
+            display: none;
         }
     </style>
 </head>
 <body>
     
-    <div id="copyToast" class="toast-msg">Código copiado para área de transferência!</div>
+    <div id="copyToast" class="toast-msg">Copiado!</div>
 
     <div class="reveal">
         <div class="slides">
@@ -146,101 +131,81 @@
             <section>
                 <h1>Relatórios de Execução</h1>
                 <h3>Orçamentária e Financeira</h3>
-                <p>Dominando os Módulos de Reserva, Empenho, Liquidação e Views</p>
-                <small>Treinamento Operacional - SMARAPD (Versão Interativa)</small>
-                <div style="margin-top: 20px; font-size: 0.5em; color: #666;">
-                    *Clique nos códigos dos relatórios para interagir
-                </div>
+                <small>Treinamento Operacional - SMARAPD</small>
             </section>
 
             <section>
                 <h2>O Fluxo da Despesa</h2>
-                <p style="font-size: 0.6em;">Clique nas etapas para ver a definição</p>
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div class="flow-step" data-desc="A Lei Orçamentária Anual define onde podemos gastar.">LOA (Fixação)</div>
-                    <div class="arrow">↓</div>
-                    <div class="flow-step" style="background-color: #005b96;" data-desc="Reserva de dotação: Bloqueia o saldo para garantir que haverá recurso.">Reserva</div>
-                    <div class="arrow">↓</div>
-                    <div class="flow-step" style="background-color: #005b96;" data-desc="Empenho: Criação da obrigação de pagamento com o credor.">Empenho</div>
-                    <div class="arrow">↓</div>
-                    <div class="flow-step" style="background-color: #005b96;" data-desc="Liquidação: Verificação do direito adquirido pelo credor (entrega do bem).">Liquidação</div>
-                </div>
-                <div id="flow-description" class="note-box" style="min-height: 60px; font-weight: bold; text-align: center;">
-                    Selecione uma etapa acima...
-                </div>
-            </section>
-
-            <section>
-                <h2>Fase de Reservas</h2>
                 
-                <div class="report-box">
-                    <span class="report-code" title="Clique para copiar">CER02900</span>
-                    <br><strong>Reservas e seus Movimentos</strong>
-                    <br><small>Mostra o saldo inicial, bloqueios, anulações e saldo atual.</small>
-                </div>
+                <button id="startFlow" class="btn-animate">▶ Visualizar Passo a Passo</button>
 
-                <div class="report-box">
-                    <span class="report-code" title="Clique para copiar">CER04400</span>
-                    <br><strong>Movimento de Reservas</strong>
-                    <br><small>Foco nas alterações ocorridas no período.</small>
+                <div class="flow-container">
+                    
+                    <div class="flow-step" id="step1">
+                        <span class="flow-title">LOA (Fixação)</span>
+                        <p>Planejamento inicial aprovado em lei.</p>
+                        <ul class="report-list">
+                            <li><span class="code-tag">COV00300</span> LOA Despesa</li>
+                        </ul>
+                    </div>
+
+                    <div class="arrow" id="arrow1">➔</div>
+
+                    <div class="flow-step" id="step2">
+                        <span class="flow-title">Reserva</span>
+                        <ul class="report-list">
+                            <li><span class="code-tag">CER02900</span> Reservas e Movimentos</li>
+                            <li><span class="code-tag">CER04400</span> Movimento de Reservas</li>
+                            <li><span class="code-tag">CER06300</span> Dem. Execução Despesa</li>
+                        </ul>
+                    </div>
+
+                    <div class="arrow" id="arrow2">➔</div>
+
+                    <div class="flow-step" id="step3">
+                        <span class="flow-title">Empenho</span>
+                        <ul class="report-list">
+                            <li><span class="code-tag">CER05300</span> Movimento de Empenhos</li>
+                            <li><span class="code-tag">CER45000</span> Empenhos e Movimentos</li>
+                        </ul>
+                    </div>
+
+                    <div class="arrow" id="arrow3">➔</div>
+
+                    <div class="flow-step" id="step4">
+                        <span class="flow-title">Liquidação</span>
+                        <ul class="report-list">
+                            <li><span class="code-tag">CER51000</span> Liquidação e Movimentos</li>
+                            <li><span class="code-tag">CER06600</span> Movimento Liquidações</li>
+                        </ul>
+                    </div>
+
                 </div>
             </section>
 
             <section>
-                <h2>Fase de Empenho</h2>
-
+                <h2>Detalhando: Reservas</h2>
                 <div class="report-box">
-                    <span class="report-code" title="Clique para copiar">CER45000</span>
-                    <br><strong>Empenhos e Seus Movimentos</strong>
-                    <br><small>Relatório completo: Emissão, reforços e anulações.</small>
+                    <span class="report-code">CER02900</span> - Reservas e seus Movimentos<br>
+                    <small>Essencial para ver o saldo disponível antes de licitar.</small>
                 </div>
-
                 <div class="report-box">
-                    <span class="report-code" title="Clique para copiar">CER05300</span>
-                    <br><strong>Movimento de Empenhos</strong>
-                    <br><small>Foco no fluxo diário/mensal para conferência.</small>
+                    <span class="report-code">CER06300</span> - Dem. Execução<br>
+                    <small>Visão gerencial macro da despesa.</small>
                 </div>
             </section>
 
             <section>
-                <h2>Views (Consultas)</h2>
-                <p style="font-size: 0.6em">Utilize o campo abaixo para filtrar a lista:</p>
-                
-                <input type="text" id="searchView" placeholder="Digite para filtrar (ex: Reserva, Item, Liquidar)...">
-
-                <ul style="font-size: 0.8em;" id="viewsList">
-                    <li><span class="report-code">CEV07601</span> <strong>Reservas a Empenhar:</strong> O que foi reservado mas não virou empenho?</li>
-                    <li><span class="report-code">CEV25601</span> <strong>Consulta de Itens:</strong> Detalhe item a item (ex: quantas "canetas" foram compradas).</li>
-                    <li><span class="report-code">CEV28400</span> <strong>Empenhos a Liquidar:</strong> O "backlog" de pagamentos.</li>
-                    <li><span class="report-code">CEV00100</span> <strong>Consulta de Dotação:</strong> Saldo atual da ficha.</li>
-                    <li><span class="report-code">CEV99900</span> <strong>Restos a Pagar:</strong> Saldos de anos anteriores.</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Melhores Práticas</h2>
-                <p style="font-size: 0.7em">Clique nos tópicos para expandir:</p>
-
-                <button class="accordion-item">Datas: Emissão vs Contábil</button>
-                <div class="accordion-panel">
-                    <p style="font-size: 0.7em">Cuidado com "Data de Emissão" vs. "Data Contábil". Para fechamento fiscal e balancetes, use sempre a data <u>Contábil</u>.</p>
-                </div>
-
-                <button class="accordion-item">Quebras de Relatório</button>
-                <div class="accordion-panel">
-                    <p style="font-size: 0.7em">Em relatórios CER, use quebras por "Unidade Orçamentária" para separar Secretarias e facilitar a distribuição.</p>
-                </div>
-
-                <button class="accordion-item">Status nas Views</button>
-                <div class="accordion-panel">
-                    <p style="font-size: 0.7em">Nas Views, filtre status "Ativo" ou "Normal" para evitar a sujeira visual de empenhos que já foram totalmente anulados.</p>
+                <h2>Detalhando: Empenho</h2>
+                <div class="report-box">
+                    <span class="report-code">CER45000</span> - Empenhos e Movimentos<br>
+                    <small>O relatório mais completo do sistema. Cruza número do empenho com fornecedor e valores.</small>
                 </div>
             </section>
 
             <section>
                 <h2>Dúvidas?</h2>
-                <p>Obrigado!</p>
-                <small>Equipe de Planejamento e Finanças</small>
+                <small>Equipe de Finanças</small>
             </section>
 
         </div>
@@ -250,7 +215,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
     
     <script>
-        // Inicialização do Reveal
         Reveal.initialize({
             controls: true,
             progress: true,
@@ -259,53 +223,36 @@
             transition: 'slide'
         });
 
-        // --- LÓGICA JQUERY ---
         $(document).ready(function() {
             
-            // 1. Funcionalidade: Clique no código para copiar
-            $('.report-code').click(function() {
-                var code = $(this).text();
-                
-                // Efeito visual no elemento
-                $(this).fadeOut(100).fadeIn(100);
+            // Lógica da Animação do Slide 2
+            $('#startFlow').click(function() {
+                // Reinicia (esconde tudo caso clique de novo)
+                $('.flow-step, .arrow').hide();
+                $(this).fadeOut(); // Esconde o botão
 
-                // Mostra Toast Notification
-                $('#copyToast').text('Código ' + code + ' copiado!').fadeIn(400).delay(2000).fadeOut(400);
-                
-                // (Opcional) Copiar para área de transferência real
-                navigator.clipboard.writeText(code);
-            });
-
-            // 2. Funcionalidade: Filtro de Lista (Slide Views)
-            $('#searchView').on('keyup', function() {
-                var value = $(this).val().toLowerCase();
-                $("#viewsList li").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                // Sequência de Animação (Corrente)
+                // Tempo em milissegundos (600ms)
+                $('#step1').fadeIn(600, function() {
+                    $('#arrow1').fadeIn(600, function() {
+                        $('#step2').fadeIn(600, function() {
+                            $('#arrow2').fadeIn(600, function() {
+                                $('#step3').fadeIn(600, function() {
+                                    $('#arrow3').fadeIn(600, function() {
+                                        $('#step4').fadeIn(600);
+                                    });
+                                });
+                            });
+                        });
+                    });
                 });
             });
 
-            // 3. Funcionalidade: Descrição Dinâmica do Fluxo
-            $('.flow-step').click(function() {
-                // Remove destaque dos outros
-                $('.flow-step').css('opacity', '0.5').css('border', 'none');
-                
-                // Destaca o atual
-                $(this).css('opacity', '1').css('border', '2px solid #ffcc00');
-                
-                // Pega a descrição do atributo data-desc
-                var desc = $(this).data('desc');
-                
-                // Injeta no box de texto com efeito fade
-                $('#flow-description').hide().html(desc).fadeIn('slow');
-            });
-
-            // 4. Funcionalidade: Accordion (Sanfona) no Slide de Dicas
-            $('.accordion-item').click(function() {
-                $(this).toggleClass('active-accordion');
-                var panel = $(this).next();
-                
-                // SlideToggle é uma função clássica do jQuery para animação suave
-                panel.slideToggle();
+            // Funcionalidade extra: Copiar código ao clicar (mantida do anterior)
+            $('.code-tag, .report-code').click(function() {
+                var text = $(this).text();
+                $('#copyToast').text(text + ' copiado!').fadeIn().delay(1000).fadeOut();
+                navigator.clipboard.writeText(text);
             });
 
         });
