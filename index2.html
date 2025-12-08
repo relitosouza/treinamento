@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Treinamento SMARAPD Responsivo</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="toast" class="toast-msg">Código copiado para área de transferência!</div>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <h1>Execução Financeira</h1>
+                <h3>Fluxo Interativo Responsivo</h3>
+                <p style="font-size:0.6em">Este slide se adapta automaticamente ao tamanho da sua tela.</p>
+                <small>Avançe para ver o App 👉</small>
+            </section>
+
+            <section style="padding: 0; width: 100%; height: 100%;" data-transition="zoom">
+                
+                <div class="app-container">
+                    
+                    <div class="app-header">
+                        <div class="logo">
+                            <div class="logo-icon">f</div>
+                            FinançasNet
+                        </div>
+                        <div style="font-size: 0.8rem; color: #666;">
+                            <span class="desktop-only">Usuário: </span>Admin
+                        </div>
+                    </div>
+
+                    <div class="app-body">
+                        
+                        <div class="sidebar">
+                            <div class="menu-item">🏠 Feed Principal</div>
+                            <div class="menu-item">📑 Meus Relatórios</div>
+                            <div class="menu-item">👥 Fornecedores</div>
+                            <div class="menu-item">⚙️ Configurações</div>
+                        </div>
+
+                        <div class="feed" id="feedArea">
+                            
+                            <div id="btnLoadMore" class="update-bar">
+                                🔔 Toque para carregar a próxima fase (LOA)
+                            </div>
+
+                            <div class="post-card" id="post1">
+                                <div class="post-header">
+                                    <div class="avatar" style="background:#003366">P</div>
+                                    <div class="user-meta">
+                                        <h4>Planejamento</h4>
+                                        <span>Há 2 horas • Público</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    O Orçamento para 2025 foi aprovado e integrado ao sistema! A LOA já está disponível para consulta.
+                                    <br><br>
+                                    Relatório de Dotação:
+                                    <br><span class="report-badge">COV00300</span>
+                                </div>
+                                <div class="post-actions">
+                                    <div class="action-btn">👍 Curtir</div>
+                                    <div class="action-btn">💬 Comentar</div>
+                                </div>
+                            </div>
+
+                            <div class="post-card" id="post2">
+                                <div class="post-header">
+                                    <div class="avatar" style="background:#198754">R</div>
+                                    <div class="user-meta">
+                                        <h4>Setor de Compras</h4>
+                                        <span>Há 45 min • Licitações</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    ⚠️ <strong>Lembrete Importante:</strong> Nenhuma licitação pode ser iniciada sem a Reserva de Dotação prévia.<br>
+                                    Verifiquem o saldo antes de bloquear.
+                                    <br><br>
+                                    <span class="report-badge">CER02900</span> (Saldo e Reservas)
+                                </div>
+                                <div class="post-actions">
+                                    <div class="action-btn">👍 Útil</div>
+                                    <div class="action-btn">↗ Compartilhar</div>
+                                </div>
+                            </div>
+
+                            <div class="post-card" id="post3">
+                                <div class="post-header">
+                                    <div class="avatar" style="background:#dc3545">E</div>
+                                    <div class="user-meta">
+                                        <h4>Contabilidade</h4>
+                                        <span>Há 10 min • Financeiro</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    Nota de Empenho emitida! 📄<br>
+                                    O crédito orçamentário foi comprometido e o fornecedor notificado.
+                                    <br><br>
+                                    Detalhes do Empenho:
+                                    <br><span class="report-badge">CER45000</span>
+                                </div>
+                                <div class="post-actions">
+                                    <div class="action-btn">❤️ Amei</div>
+                                    <div class="action-btn">📥 Baixar PDF</div>
+                                </div>
+                            </div>
+
+                            <div class="post-card" id="post4">
+                                <div class="post-header">
+                                    <div class="avatar" style="background:#6610f2">L</div>
+                                    <div class="user-meta">
+                                        <h4>Almoxarifado & Recebimento</h4>
+                                        <span>Agora mesmo</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    📦 Material recebido e conferido com sucesso!<br>
+                                    A liquidação foi processada. O pagamento está autorizado.
+                                    <br><br>
+                                    <span class="report-badge">CER51000</span> (Espelho da Liquidação)
+                                </div>
+                                <div class="post-actions">
+                                    <div class="action-btn" style="color:green; font-weight:bold">💲 PAGAR AGORA</div>
+                                </div>
+                            </div>
+                            
+                            <div id="endMessage" style="text-align:center; padding:20px; color:#888; display:none; font-size:0.8rem;">
+                                ✔️ Você visualizou todo o fluxo da despesa.
+                            </div>
+
+                        </div>
+
+                        <div class="sidebar">
+                            <div class="widget">
+                                <h4>📈 Em Alta</h4>
+                                <div class="trend">Restos a Pagar <small>10.5k posts</small></div>
+                                <div class="trend">Fechamento Mensal <small>5.2k posts</small></div>
+                                <div class="trend">Superávit <small>2.1k posts</small></div>
+                            </div>
+                            <div class="widget" style="margin-top:15px;">
+                                <h4>💡 Dica Rápida</h4>
+                                <p style="font-size:0.8rem; color:#555;">Use a tecla F5 no sistema para atualizar saldos de empenho.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    
+    <script src="script.js"></script>
+
+</body>
+</html>
