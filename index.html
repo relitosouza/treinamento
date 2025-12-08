@@ -3,365 +3,253 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Treinamento SMARAPD - Social Feed</title>
+    <title>Treinamento SMARAPD - Desktop Feed</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
     
     <style>
         /* --- ESTILOS GERAIS --- */
-        .reveal h1, .reveal h2 {
-            color: #003366; 
-            text-transform: none;
-        }
+        .reveal h1, .reveal h2 { color: #003366; text-transform: none; }
+        .reveal { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 
-        /* --- ESTILO "SOCIAL FEED" (CELULAR) --- */
-        .phone-frame {
-            width: 450px; /* Largura de celular */
-            height: 600px;
-            margin: 0 auto;
-            background-color: #f5f8fa; /* Cor de fundo estilo Twitter/FB */
-            border: 8px solid #333;
-            border-radius: 30px;
-            overflow-y: auto; /* Permite rolar se o feed for longo */
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+        /* --- LAYOUT DESKTOP BROWSER --- */
+        .desktop-browser {
+            width: 100%;
+            height: 650px; /* Altura do Slide */
+            background-color: #f0f2f5; /* Cor de fundo clássica de redes sociais */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             text-align: left;
         }
 
-        /* Esconder barra de rolagem para ficar mais bonito */
-        .phone-frame::-webkit-scrollbar { width: 5px; }
-        .phone-frame::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; }
-
-        /* Cabeçalho do App */
-        .app-header {
-            background: #003366;
-            color: white;
-            padding: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+        /* Barra de Navegação Superior (Fake Browser Header) */
+        .browser-header {
+            background: #fff;
+            height: 50px;
+            border-bottom: 1px solid #ddd;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            z-index: 100;
         }
-        .app-time { font-size: 12px; font-weight: bold; }
+        .logo-area { font-weight: bold; color: #003366; font-size: 20px; display: flex; align-items: center; gap: 10px; }
+        .search-bar { 
+            background: #f0f2f5; border-radius: 20px; padding: 8px 15px; 
+            margin-left: 20px; color: #65676b; font-size: 14px; width: 300px;
+        }
 
-        /* O Post (Card) */
+        /* Corpo Principal (Grid de 3 colunas) */
+        .desktop-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Coluna Esquerda (Menu) */
+        .sidebar-left {
+            width: 250px;
+            padding: 20px;
+            display: none; /* Esconde em telas muito pequenas, mas no slide aparece */
+        }
+        @media (min-width: 800px) { .sidebar-left { display: block; } }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            color: #050505;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        .menu-item:hover { background-color: #e4e6eb; }
+        .menu-icon { margin-right: 12px; font-size: 1.2em; }
+
+        /* Coluna Central (O Feed) */
+        .feed-column {
+            flex: 1;
+            max-width: 600px; /* Largura padrão de feed desktop */
+            overflow-y: auto; /* Scroll apenas aqui */
+            padding: 20px;
+            margin: 0 auto; /* Centraliza */
+        }
+        /* Scrollbar bonita */
+        .feed-column::-webkit-scrollbar { width: 8px; }
+        .feed-column::-webkit-scrollbar-thumb { background: #bcc0c4; border-radius: 4px; }
+
+        /* Coluna Direita (Widgets) */
+        .sidebar-right {
+            width: 280px;
+            padding: 20px;
+            display: none;
+        }
+        @media (min-width: 1000px) { .sidebar-right { display: block; } }
+
+        .widget-box {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .widget-title { font-weight: bold; color: #65676b; margin-bottom: 10px; font-size: 14px; }
+        .trend-item { margin-bottom: 10px; font-size: 13px; cursor: pointer; }
+        .trend-topic { font-weight: bold; display: block; color: #050505; }
+        .trend-meta { color: #65676b; font-size: 12px; }
+
+        /* --- ESTILO DOS POSTS (Cards) --- */
         .social-card {
             background: white;
-            margin: 15px 10px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 20px; /* Espaço entre posts */
             padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            display: none; /* Começa oculto para animação */
-            border: 1px solid #e1e8ed;
+            display: none; /* Começa oculto */
         }
 
-        /* Cabeçalho do Post (Avatar + Nome) */
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+        .card-header { display: flex; align-items: center; margin-bottom: 12px; }
         .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-right: 10px;
-            color: white;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: #ddd; display: flex; align-items: center; justify-content: center;
+            margin-right: 10px; color: white; font-weight: bold;
         }
-        .user-info h4 {
-            margin: 0;
-            font-size: 16px;
-            color: #14171a;
-            font-weight: bold;
-        }
-        .user-info span {
-            font-size: 12px;
-            color: #657786;
-        }
+        .user-info h4 { margin: 0; font-size: 15px; color: #050505; font-weight: 600; }
+        .user-info span { font-size: 12px; color: #65676b; }
 
-        /* Conteúdo do Post */
-        .card-body {
-            font-size: 14px;
-            color: #14171a;
-            line-height: 1.4;
-            margin-bottom: 10px;
-        }
+        .card-body { font-size: 15px; color: #050505; line-height: 1.4; margin-bottom: 12px; }
 
-        /* "Hashtags" e Códigos */
         .report-tag {
             display: inline-block;
-            background-color: #e8f5fd; /* Azulzinho claro */
-            color: #1da1f2; /* Azul Twitter */
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            margin: 2px 0;
+            color: #1877f2; /* Azul Facebook */
+            font-weight: 600;
             cursor: pointer;
-            border: 1px solid transparent;
+            margin-right: 5px;
         }
-        .report-tag:hover {
-            border: 1px solid #1da1f2;
-            background-color: #d0eefd;
-        }
-        .report-desc {
-            font-size: 0.9em;
-            color: #555;
-            margin-left: 5px;
-        }
-
-        /* Rodapé do Post (Likes/Comments) */
+        .report-tag:hover { text-decoration: underline; }
+        
         .card-footer {
-            border-top: 1px solid #e1e8ed;
-            padding-top: 10px;
+            border-top: 1px solid #ced0d4;
+            padding-top: 8px;
             display: flex;
             justify-content: space-around;
-            color: #657786;
-            font-size: 12px;
         }
-        .action-icon { cursor: pointer; }
-        .action-icon:hover { color: #e0245e; } /* Rosa Like */
+        .btn-action {
+            flex: 1; text-align: center; padding: 5px; border-radius: 4px;
+            color: #65676b; font-size: 14px; font-weight: 600; cursor: pointer;
+        }
+        .btn-action:hover { background-color: #f0f2f5; }
 
-        /* Botão Flutuante (FAB) */
-        .fab-btn {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: #1da1f2;
-            color: white;
-            border-radius: 50%;
-            border: none;
-            font-size: 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        /* Botão "Carregar Novos Posts" */
+        .new-posts-bar {
+            background: #e7f3ff;
+            color: #1877f2;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-            z-index: 20;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.2s;
         }
-        .fab-btn:hover { transform: scale(1.1); background-color: #0d8ddb; }
-        .fab-btn:active { transform: scale(0.9); }
+        .new-posts-bar:hover { background: #dbe7f2; transform: scale(1.02); }
 
         /* Toast */
         .toast-msg {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0,0,0,0.8);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 25px;
-            font-size: 16px;
-            display: none;
-            z-index: 9999;
+            position: fixed; bottom: 30px; left: 30px;
+            background: #333; color: white; padding: 12px 20px;
+            border-radius: 4px; display: none; z-index: 200; font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <div id="copyToast" class="toast-msg">Código copiado! 📋</div>
+    <div id="copyToast" class="toast-msg">Código copiado!</div>
 
     <div class="reveal">
         <div class="slides">
 
             <section>
                 <h1>Execução Financeira</h1>
-                <h3>Visualização Estilo Feed</h3>
-                <p>Navegue pelo slide seguinte como se fosse uma Rede Social.</p>
+                <h3>Visão Desktop</h3>
+                <p>O fluxo da despesa como você nunca viu.</p>
             </section>
 
-            <section>
-                <div class="phone-frame" id="feedContainer">
-                    
-                    <div class="app-header">
-                        <span>FinançasGram</span>
-                        <span class="app-time">16:40</span>
-                    </div>
-
-                    <button id="btnNextPost" class="fab-btn" title="Novo Post">⬇</button>
-
-                    <div class="social-card" id="post1">
-                        <div class="card-header">
-                            <div class="avatar" style="background:#ff9800;">L</div>
-                            <div class="user-info">
-                                <h4>Lei Orçamentária</h4>
-                                <span>@planejamento • 1min</span>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            Começando o ano! O orçamento foi aprovado e fixado. 🏛️<br><br>
-                            <div>
-                                <span class="report-tag">COV00300</span> <span class="report-desc">LOA Despesa</span>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="action-icon">❤️ 1.2k Likes</span>
-                            <span>💬 Comentários</span>
-                        </div>
-                    </div>
-
-                    <div class="social-card" id="post2">
-                        <div class="card-header">
-                            <div class="avatar" style="background:#2196f3;">R</div>
-                            <div class="user-info">
-                                <h4>Reserva de Dotação</h4>
-                                <span>@compras • Agora</span>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            Segura esse saldo! Antes de licitar, precisamos bloquear a dotação. 🔒<br><br>
-                            <div><span class="report-tag">CER02900</span> <span class="report-desc">Reservas e Movimentos</span></div>
-                            <div><span class="report-tag">CER04400</span> <span class="report-desc">Movimento do dia</span></div>
-                            <div><span class="report-tag">CER06300</span> <span class="report-desc">Dem. Execução</span></div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="action-icon">❤️ 850 Likes</span>
-                            <span>💬 Compartilhar</span>
-                        </div>
-                    </div>
-
-                    <div class="social-card" id="post3">
-                        <div class="card-header">
-                            <div class="avatar" style="background:#4caf50;">E</div>
-                            <div class="user-info">
-                                <h4>Empenho</h4>
-                                <span>@contabilidade • Agora mesmo</span>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            Contrato assinado! A obrigação com o fornecedor foi criada. ✍️💰<br><br>
-                            <div><span class="report-tag">CER05300</span> <span class="report-desc">Movimento Empenhos</span></div>
-                            <div><span class="report-tag">CER45000</span> <span class="report-desc">Empenhos Detalhados</span></div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="action-icon">❤️ 2.5k Likes</span>
-                            <span>💬 Salvar</span>
-                        </div>
-                    </div>
-
-                    <div class="social-card" id="post4">
-                        <div class="card-header">
-                            <div class="avatar" style="background:#9c27b0;">L</div>
-                            <div class="user-info">
-                                <h4>Liquidação</h4>
-                                <span>@almoxarifado • Ao vivo</span>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            Mercadoria entregue e conferida! ✅ Pode mandar pagar.<br><br>
-                            <div><span class="report-tag">CER51000</span> <span class="report-desc">Liquidação e Movimentos</span></div>
-                            <div><span class="report-tag">CER06600</span> <span class="report-desc">Movimento Liquidações</span></div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="action-icon">❤️ 5k Likes</span>
-                            <span>💬 Pagar</span>
-                        </div>
-                    </div>
-
-                    <div id="endFeed" style="text-align:center; color:#999; padding:20px; display:none;">
-                        ✓ Você viu tudo por hoje
-                    </div>
-
-                </div>
-            </section>
-
-            <section>
-                <h2>Detalhes Técnicos</h2>
-                <p>Cada "Post" representa uma fase crítica do sistema SMARAPD.</p>
-                <div style="background:#e8f5fd; padding:15px; border-radius:10px; color:#003366;">
-                    <strong>Dica:</strong> Clique nos códigos azuis no slide anterior para copiar.
-                </div>
-            </section>
-
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
-    
-    <script>
-        Reveal.initialize({
-            controls: true,
-            progress: true,
-            center: true,
-            hash: false,
-            transition: 'slide'
-        });
-
-        $(document).ready(function() {
-            
-            // Variável para controlar qual post está sendo mostrado
-            var currentStep = 0;
-            var totalSteps = 4;
-
-            // Lógica do Botão Flutuante (Next Post)
-            $('#btnNextPost').click(function() {
-                currentStep++;
-
-                if (currentStep <= totalSteps) {
-                    // Seleciona o card pelo ID (post1, post2...)
-                    var selector = '#post' + currentStep;
-                    
-                    // Animação SlideDown (parece que o feed está descendo/crescendo)
-                    $(selector).slideDown(600);
-                    
-                    // Scroll suave para o final do container (celular)
-                    var container = $('#feedContainer');
-                    container.animate({
-                        scrollTop: container.prop("scrollHeight")
-                    }, 800);
-
-                    // Se for o último, muda o ícone ou esconde o botão
-                    if (currentStep === totalSteps) {
-                        $('#endFeed').fadeIn();
-                        $(this).fadeOut(); // Esconde o botão no final
-                    }
-                }
-            });
-
-            // Lógica de Copiar Código (Ao clicar nas tags azuis)
-            $('.report-tag').click(function(e) {
-                e.stopPropagation(); // Evita bugs de clique
-                var code = $(this).text();
+            <section style="padding: 0; width: 100%; height: 100%;">
                 
-                // Animação de clique
-                $(this).css('transform', 'scale(0.95)');
-                setTimeout(() => $(this).css('transform', 'scale(1)'), 100);
+                <div class="desktop-browser">
+                    <div class="browser-header">
+                        <div class="logo-area">
+                            <div style="width:30px;height:30px;background:#003366;border-radius:50%;color:white;text-align:center;line-height:30px;">f</div>
+                            Finançasbook
+                        </div>
+                        <div class="search-bar">🔍 Pesquisar relatórios...</div>
+                    </div>
 
-                // Toast
-                $('#copyToast').text(code + ' copiado!').fadeIn(200).delay(1000).fadeOut(200);
-                
-                // Copiar para clipboard
-                navigator.clipboard.writeText(code);
-            });
+                    <div class="desktop-body">
+                        
+                        <div class="sidebar-left">
+                            <div class="menu-item"><span class="menu-icon">🏠</span> Início</div>
+                            <div class="menu-item"><span class="menu-icon">👥</span> Fornecedores</div>
+                            <div class="menu-item"><span class="menu-icon">📊</span> Analytics</div>
+                            <div class="menu-item"><span class="menu-icon">💾</span> Arquivos</div>
+                            <hr style="border-color:#ccc; opacity:0.5;">
+                            <div style="font-size:12px; color:#666; padding-left:10px;">Atalhos</div>
+                            <div class="menu-item"><span class="menu-icon">📑</span> LOA 2025</div>
+                        </div>
 
-            // Animaçãozinha de Like
-            $('.action-icon').click(function() {
-                var text = $(this).text();
-                if(text.includes('❤️')) {
-                    $(this).css('color', '#657786'); // Descurtir
-                } else {
-                    $(this).css('color', '#e0245e'); // Curtir
-                    // Efeito de pulso
-                    $(this).fadeOut(100).fadeIn(100);
-                }
-            });
+                        <div class="feed-column" id="mainFeed">
+                            
+                            <div id="btnLoadMore" class="new-posts-bar">
+                                ↑ Existem novas atualizações no fluxo (Clique aqui)
+                            </div>
 
-        });
-    </script>
-</body>
-</html>
+                            <div class="social-card" id="post1">
+                                <div class="card-header">
+                                    <div class="avatar" style="background:#003366;">P</div>
+                                    <div class="user-info">
+                                        <h4>Planejamento Estratégico</h4>
+                                        <span>10 min atrás • Público 🌎</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    A Lei Orçamentária Anual (LOA) foi carregada com sucesso no sistema! Agora já sabemos o teto de gastos.
+                                    <br><br>
+                                    Relatório disponível: <span class="report-tag">#COV00300</span> (LOA Despesa)
+                                </div>
+                                <div class="card-footer">
+                                    <div class="btn-action">👍 Curtir</div>
+                                    <div class="btn-action">💬 Comentar</div>
+                                    <div class="btn-action">↪ Compartilhar</div>
+                                </div>
+                            </div>
+
+                            <div class="social-card" id="post2">
+                                <div class="card-header">
+                                    <div class="avatar" style="background:#198754;">C</div>
+                                    <div class="user-info">
+                                        <h4>Departamento de Compras</h4>
+                                        <span>5 min atrás • Setor de Licitações</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    Atenção equipe! Antes de abrir o edital, lembrem-se de bloquear o saldo. Sem reserva = Sem licitação! 🚫💸
+                                    <br><br>
+                                    Use o <span class="report-tag">#CER02900</span> para ver saldo livre e o <span class="report-tag">#CER04400</span> para movimentos do dia.
+                                </div>
+                                <div class="card-footer">
+                                    <div class="btn-action">👍 Curtir</div>
+                                    <div class="btn-action">💬 Comentar</div>
+                                </div>
+                            </div>
+
+                            <div class="social-card" id="post3">
