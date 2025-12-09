@@ -15,12 +15,15 @@ Reveal.initialize({
 $(document).ready(function() {
     
     // Variáveis de Estado do Feed
+// No script.js
     var step = 0;
-    var totalSteps = 4;
+    var totalSteps = 5; // MUDOU PARA 5
+
     var titles = [
-        "Carregar fase: RESERVA (2/4)", 
-        "Carregar fase: EMPENHO (3/4)", 
-        "Carregar fase: LIQUIDAÇÃO (4/4)", 
+        "Carregar fase: FLUXO GERAL (2/5)", 
+        "Carregar fase: RESERVA (3/5)",
+        "Carregar fase: EMPENHO (4/5)", 
+        "Carregar fase: LIQUIDAÇÃO (5/5)", 
         "Fluxo concluído! ✅"
     ];
 
