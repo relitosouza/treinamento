@@ -18,10 +18,10 @@ $(document).ready(function() {
     var step = 0;
     var totalSteps = 4;
     var titles = [
-        "Carregar fase: LOA e PLANEJAMENTO (2/4)", // O próximo post (post2)
-        "Carregar fase: EMPENHO E EXECUÇÃO (3/4)", // O próximo (post3)
-        "Carregar fase: LIQUIDAÇÃO (4/4)",        // O último (post4)
-        "Treinamento concluído! ✅"
+        "Carregar fase: RESERVA (2/4)", 
+        "Carregar fase: EMPENHO (3/4)", 
+        "Carregar fase: LIQUIDAÇÃO (4/4)", 
+        "Fluxo concluído! ✅"
     ];
 
     // --- FUNÇÃO PARA CARREGAR O PRÓXIMO POST ---
@@ -31,7 +31,7 @@ $(document).ready(function() {
         if (step <= totalSteps) {
             var card = $('#post' + step);
             
-            // Exibe o card com animação
+            // Exibe o card
             card.show(); 
             
             // Scroll suave para mostrar o novo post
@@ -40,11 +40,11 @@ $(document).ready(function() {
                 scrollTop: container.prop("scrollHeight")
             }, 800);
 
-            // Atualiza texto da barra de status (apenas visual agora)
+            // Atualiza texto da barra de status
             if (step < totalSteps) {
                 $('#btnLoadMore').text("🔔 " + titles[step-1]);
             } else {
-                $('#btnLoadMore').slideUp(); // Some a barra no final
+                $('#btnLoadMore').slideUp();
                 $('#endMessage').fadeIn();
             }
         }
@@ -53,32 +53,28 @@ $(document).ready(function() {
     // --- CLIQUE GLOBAL NA TELA (NAVEGAÇÃO) ---
     $(document).click(function(event) {
         
-        // 1. Verifica se o clique foi em um elemento interativo (Botão/Badge)
-        // Se foi, NÃO avançamos o slide (paramos a função aqui)
+        // 1. Ignora se clicar em botões interativos
         if ($(event.target).closest('.action-btn, .report-badge, .menu-item, .widget').length) {
             return; 
         }
 
-        // 2. Verifica em qual slide estamos
+        // 2. Verifica contexto
         var currentSlide = Reveal.getCurrentSlide();
         
-        // --- CENÁRIO A: Estamos na Capa (Slide 1) ---
-        // Verifica se existe a caixa de introdução no slide atual
+        // SE: Capa (Slide 1) -> Avança
         if ($(currentSlide).find('.intro-box').length > 0) {
-            Reveal.next(); // Vai para o próximo slide (O App)
+            Reveal.next(); 
         }
         
-        // --- CENÁRIO B: Estamos no App (Slide 2) ---
-        // Verifica se existe o container do app
+        // SE: App (Slide 2) -> Carrega Post
         else if ($(currentSlide).find('.app-container').length > 0) {
-            // Se o feed ainda não acabou, carrega o próximo post
             if (step < totalSteps) {
                 loadNextPost();
             }
         }
     });
 
-    // --- INTERAÇÕES ESPECÍFICAS (COPIAR E CURTIR) ---
+    // --- INTERAÇÕES ---
     
     // Copiar Código
     $('.report-badge').click(function() {
@@ -93,10 +89,10 @@ $(document).ready(function() {
         }, 300);
     });
 
-    // Botões de Ação (Curtir/Comentar)
+    // Curtir
     $('.action-btn').click(function() {
         var text = $(this).text();
-        if(text.includes('Curtir') || text.includes('Amei') || text.includes('Útil')) {
+        if(text.includes('Curtir') || text.includes('Amei') || text.includes('Útil') || text.includes('Confirmar')) {
             if ($(this).css('color') === 'rgb(101, 103, 107)') { 
                 $(this).css('color', '#e0245e').css('font-weight', 'bold'); 
             } else {
