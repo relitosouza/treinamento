@@ -1,256 +1,212 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <title>Treinamento SMARAPD Responsivo</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Treinamento SMARAPD - Feed Interativo</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css"
-      id="theme"
-    />
-
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="toast" class="toast-msg">
-      Código copiado para área de transferência!
-    </div>
+    <div id="toast" class="toast-msg">Código copiado!</div>
 
     <div class="reveal">
-      <div class="slides">
-        <section>
-          <div class="intro-box">
-            <div class="intro-icon">📊</div>
-            <h1>Execução Financeira</h1>
-            <h3>Fluxo Interativo Responsivo</h3>
-            <hr
-              style="
-                width: 50%;
-                margin: 20px auto;
-                border: 0;
-                border-top: 1px solid #ccc;
-              "
-            />
-            <p style="font-size: 0.7em; color: #555">
-              Este treinamento simula um sistema real.<br />
-              Adapta-se automaticamente ao seu PC ou Celular.
-            </p>
-            <div class="swipe-hint" id="btnStart">
-              Clique aqui para Iniciar o App 👉
-            </div>
-          </div>
-        </section>
+        <div class="slides">
 
-        <section
-          style="padding: 0; width: 100%; height: 100%"
-          data-transition="zoom"
-        >
-          <div class="app-container">
-            <div class="app-header">
-              <div class="logo">
-                <div class="logo-icon">f</div>
-                Treinamento Finanças
-              </div>
-              <div style="font-size: 0.8rem; color: #666">
-                <span class="desktop-only">Usuário: </span>Admin
-              </div>
-            </div>
-
-            <div class="app-body">
-              <div class="sidebar">
-                <div class="menu-item">🏠 Feed Principal</div>
-                <div class="menu-item">📑 Meus Relatórios</div>
-                <div class="menu-item">👥 Fornecedores</div>
-                <div class="menu-item">⚙️ Configurações</div>
-              </div>
-
-              <div class="feed" id="feedArea">
-                <div class="post-card" id="post1">
-                  <div class="post-header">
-                    <div class="avatar" style="background: #2c3e50">🎓</div>
-                    <div class="user-meta">
-                      <h4>Instrutor do Treinamento</h4>
-                      <span>Fixado no topo • Agenda Oficial</span>
+            <section>
+                <div class="intro-box">
+                    <div class="intro-icon">📊</div>
+                    <h1>Execução Financeira</h1>
+                    <h3>Fluxo Interativo Responsivo</h3>
+                    <hr style="width: 50%; margin: 20px auto; border: 0; border-top: 1px solid #ccc;">
+                    <p style="font-size:0.8rem; color: #555;">
+                        Este treinamento simula um sistema real.<br>
+                        Clique em qualquer lugar para interagir.
+                    </p>
+                    <div class="swipe-hint" id="btnStart">
+                        Clique aqui para Iniciar 👉
                     </div>
-                  </div>
-
-                  <div class="post-content">
-                    <strong
-                      >Olá, equipe! 👋 Esta é a nossa pauta de hoje:</strong
-                    >
-                    <br /><br />
-
-                    🚀 <strong>Ciclo da Despesa:</strong> Visão Geral
-                    <br /><br />
-
-                    ⚙️ <strong>Módulo Execução:</strong>
-                    <ul
-                      style="
-                        margin: 5px 0 15px 20px;
-                        font-size: 0.95em;
-                        color: #444;
-                      "
-                    >
-                      <li>🔒 Reservas (Bloqueio)</li>
-                      <li>✍️ Empenhos (Obrigação)</li>
-                      <li>✅ Liquidação (Reconhecimento)</li>
-                      <li>📊 <strong>Views e Consultas:</strong> Extração p/ Excel</li>
-                      <li> 📑 <strong>Relatórios da LOA:</strong> Receita x Despesa</li>
-                      <li> 💡 <strong>Dicas Práticas:</strong> Filtros e Parâmetros</li>
-                    </ul>
-                           
-                  </div>
-
-                  <div class="post-actions">
-                    <div class="action-btn">✅ Confirmar Presença</div>
-                    <div class="action-btn">💾 Salvar Pauta</div>
-                  </div>
                 </div>
+            </section>
 
-                <div id="btnLoadMore" class="update-bar">
-                  🔔 Toque para carregar a próxima fase (LOA)
-                </div>
-
-                <div class="post-card" id="post1">
-                  <div class="post-header">
-                    <div class="avatar" style="background: #003366">P</div>
-                    <div class="user-meta">
-                      <h4>Planejamento</h4>
-                      <span>Há 2 horas • Público</span>
+            <section style="padding: 0; width: 100%; height: 100%;" data-transition="zoom">
+                
+                <div class="app-container">
+                    
+                    <div class="app-header">
+                        <div class="logo">
+                            <div class="logo-icon">f</div>
+                            FinançasNet
+                        </div>
+                        <div style="font-size: 0.8rem; color: #666;">
+                            <span class="desktop-only">Usuário: </span>Admin
+                        </div>
                     </div>
-                  </div>
-                  <div class="post-content">
-                    O Orçamento para 2025 foi aprovado e integrado ao sistema! A
-                    LOA já está disponível para consulta.
-                    <br /><br />
-                    Relatório de Dotação:
-                    <br /><span class="report-badge">COV00300</span>
-                  </div>
-                  <div class="post-actions">
-                    <div class="action-btn">👍 Curtir</div>
-                    <div class="action-btn">💬 Comentar</div>
-                  </div>
-                </div>
 
-                <div class="post-card" id="post2">
-                  <div class="post-header">
-                    <div class="avatar" style="background: #198754">R</div>
-                    <div class="user-meta">
-                      <h4>Setor de Compras</h4>
-                      <span>Há 45 min • Licitações</span>
+                    <div class="app-body">
+                        
+                        <div class="sidebar">
+                            <div class="menu-item">🏠 Feed Principal</div>
+                            <div class="menu-item">📑 Meus Relatórios</div>
+                            <div class="menu-item">👥 Fornecedores</div>
+                            <div class="menu-item">⚙️ Configurações</div>
+                        </div>
+
+                        <div class="feed" id="feedArea">
+                            
+                            <div id="btnLoadMore" class="update-bar">
+                                🔔 Toque para ver a Agenda do Dia
+                            </div>
+
+                            <div class="post-card" id="post1">
+                                <div class="post-header">
+                                    <div class="avatar" style="background:#2c3e50">🎓</div>
+                                    <div class="user-meta">
+                                        <h4>Instrutor do Treinamento</h4>
+                                        <span>Fixado no topo • Agenda Oficial</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="post-content">
+                                    <strong>Agenda do Treinamento 🗓️</strong><br><br>
+                                    🚀 <strong>Ciclo da Despesa:</strong> Visão Geral<br><br>
+                                    ⚙️ <strong>Módulo Execução:</strong>
+                                    <ul style="margin: 5px 0 15px 20px; font-size: 0.95em; color: #444;">
+                                        <li>🔒 Reservas (Bloqueio)</li>
+                                        <li>✍️ Empenhos (Obrigação)</li>
+                                        <li>✅ Liquidação (Reconhecimento)</li>
+                                    </ul>
+                                    📊 <strong>Views e Consultas:</strong> Extração Excel<br>
+                                    📑 <strong>Relatórios da LOA:</strong> Receita x Despesa<br>
+                                    💡 <strong>Dicas Práticas:</strong> Filtros e Parâmetros
+                                </div>
+
+                                <div class="post-image-container">
+                                    <div class="image-placeholder">
+                                        <div class="placeholder-icon">🖼️</div>
+                                        <span>Slide da Agenda</span>
+                                    </div>
+                                </div>
+
+                                <div class="post-actions">
+                                    <div class="action-btn">✅ Confirmar</div>
+                                    <div class="action-btn">💾 Salvar</div>
+                                </div>
+                            </div>
+
+                            <div class="post-card" id="post2">
+                                <div class="post-header">
+                                    <div class="avatar" style="background:#198754">R</div>
+                                    <div class="user-meta">
+                                        <h4>Setor de Compras</h4>
+                                        <span>Há 45 min • Licitações</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    ⚠️ <strong>Lembrete Importante:</strong> Nenhuma licitação pode ser iniciada sem a Reserva de Dotação prévia.<br>
+                                    Verifiquem o saldo antes de bloquear.
+                                    <br><br>
+                                    <span class="report-badge">CER02900</span> (Saldo e Reservas)
+                                </div>
+
+                                <div class="post-image-container">
+                                    <div class="image-placeholder">
+                                        <div class="placeholder-icon">🖼️</div>
+                                        <span>Print do Relatório CER02900</span>
+                                    </div>
+                                </div>
+
+                                <div class="post-actions">
+                                    <div class="action-btn">👍 Útil</div>
+                                    <div class="action-btn">↗ Compartilhar</div>
+                                </div>
+                            </div>
+
+                            <div class="post-card" id="post3">
+                                <div class="post-header">
+                                    <div class="avatar" style="background:#dc3545">E</div>
+                                    <div class="user-meta">
+                                        <h4>Contabilidade</h4>
+                                        <span>Há 10 min • Financeiro</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    Nota de Empenho emitida! 📄<br>
+                                    O crédito orçamentário foi comprometido e o fornecedor notificado.
+                                    <br><br>
+                                    Detalhes do Empenho:
+                                    <br><span class="report-badge">CER45000</span>
+                                </div>
+
+                                <div class="post-image-container">
+                                    <div class="image-placeholder">
+                                        <div class="placeholder-icon">🖼️</div>
+                                        <span>Exemplo de Nota de Empenho</span>
+                                    </div>
+                                </div>
+
+                                <div class="post-actions">
+                                    <div class="action-btn">❤️ Amei</div>
+                                    <div class="action-btn">📥 Baixar PDF</div>
+                                </div>
+                            </div>
+
+                            <div class="post-card" id="post4">
+                                <div class="post-header">
+                                    <div class="avatar" style="background:#6610f2">L</div>
+                                    <div class="user-meta">
+                                        <h4>Almoxarifado & Recebimento</h4>
+                                        <span>Agora mesmo</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    📦 Material recebido e conferido com sucesso!<br>
+                                    A liquidação foi processada. O pagamento está autorizado.
+                                    <br><br>
+                                    <span class="report-badge">CER51000</span> (Espelho da Liquidação)
+                                </div>
+
+                                <div class="post-image-container">
+                                    <div class="image-placeholder">
+                                        <div class="placeholder-icon">🖼️</div>
+                                        <span>Foto da Entrega / Nota Fiscal</span>
+                                    </div>
+                                </div>
+
+                                <div class="post-actions">
+                                    <div class="action-btn" style="color:green; font-weight:bold">💲 PAGAR AGORA</div>
+                                </div>
+                            </div>
+                            
+                            <div id="endMessage" style="text-align:center; padding:20px; color:#888; display:none; font-size:0.8rem;">
+                                ✔️ Fluxo concluído com sucesso.
+                            </div>
+
+                        </div>
+
+                        <div class="sidebar">
+                            <div class="widget">
+                                <h4>📈 Em Alta</h4>
+                                <div class="trend">Restos a Pagar <small>10.5k posts</small></div>
+                                <div class="trend">Fechamento Mensal <small>5.2k posts</small></div>
+                                <div class="trend">Superávit <small>2.1k posts</small></div>
+                            </div>
+                        </div>
+
                     </div>
-                  </div>
-                  <div class="post-content">
-                    ⚠️ <strong>Lembrete Importante:</strong> Nenhuma licitação
-                    pode ser iniciada sem a Reserva de Dotação prévia.<br />
-                    Verifiquem o saldo antes de bloquear.
-                    <br /><br />
-                    <span class="report-badge">CER02900</span> (Saldo e
-                    Reservas)
-                  </div>
-                  <div class="post-actions">
-                    <div class="action-btn">👍 Útil</div>
-                    <div class="action-btn">↗ Compartilhar</div>
-                  </div>
                 </div>
+            </section>
 
-                <div class="post-card" id="post3">
-                  <div class="post-header">
-                    <div class="avatar" style="background: #dc3545">E</div>
-                    <div class="user-meta">
-                      <h4>Contabilidade</h4>
-                      <span>Há 10 min • Financeiro</span>
-                    </div>
-                  </div>
-                  <div class="post-content">
-                    Nota de Empenho emitida! 📄<br />
-                    O crédito orçamentário foi comprometido e o fornecedor
-                    notificado.
-                    <br /><br />
-                    Detalhes do Empenho:
-                    <br /><span class="report-badge">CER45000</span>
-                  </div>
-                  <div class="post-actions">
-                    <div class="action-btn">❤️ Amei</div>
-                    <div class="action-btn">📥 Baixar PDF</div>
-                  </div>
-                </div>
-
-                <div class="post-card" id="post4">
-                  <div class="post-header">
-                    <div class="avatar" style="background: #6610f2">L</div>
-                    <div class="user-meta">
-                      <h4>Almoxarifado & Recebimento</h4>
-                      <span>Agora mesmo</span>
-                    </div>
-                  </div>
-                  <div class="post-content">
-                    📦 Material recebido e conferido com sucesso!<br />
-                    A liquidação foi processada. O pagamento está autorizado.
-                    <br /><br />
-                    <span class="report-badge">CER51000</span> (Espelho da
-                    Liquidação)
-                  </div>
-                  <div class="post-actions">
-                    <div
-                      class="action-btn"
-                      style="color: green; font-weight: bold"
-                    >
-                      💲 PAGAR AGORA
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  id="endMessage"
-                  style="
-                    text-align: center;
-                    padding: 20px;
-                    color: #888;
-                    display: none;
-                    font-size: 0.8rem;
-                  "
-                >
-                  ✔️ Você visualizou todo o fluxo da despesa.
-                </div>
-              </div>
-
-              <div class="sidebar">
-                <div class="widget">
-                  <h4>📈 Em Alta</h4>
-                  <div class="trend">
-                    Restos a Pagar <small>10.5k posts</small>
-                  </div>
-                  <div class="trend">
-                    Fechamento Mensal <small>5.2k posts</small>
-                  </div>
-                  <div class="trend">Superávit <small>2.1k posts</small></div>
-                </div>
-                <div class="widget" style="margin-top: 15px">
-                  <h4>💡 Dica Rápida</h4>
-                  <p style="font-size: 0.8rem; color: #555">
-                    Use a tecla F5 no sistema para atualizar saldos de empenho.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="script.js"></script>
 
-    <script src="scripts.js"></script>
-  </body>
+</body>
 </html>
