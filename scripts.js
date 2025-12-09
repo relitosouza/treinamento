@@ -18,10 +18,10 @@ $(document).ready(function() {
     var step = 0;
     var totalSteps = 4;
     var titles = [
-        "Carregar fase: RESERVA (2/4)", 
-        "Carregar fase: EMPENHO (3/4)", 
-        "Carregar fase: LIQUIDAÇÃO (4/4)", 
-        "Fluxo concluído! ✅"
+        "Carregar fase: LOA e PLANEJAMENTO (2/4)", // O próximo post (post2)
+        "Carregar fase: EMPENHO E EXECUÇÃO (3/4)", // O próximo (post3)
+        "Carregar fase: LIQUIDAÇÃO (4/4)",        // O último (post4)
+        "Treinamento concluído! ✅"
     ];
 
     // --- FUNÇÃO PARA CARREGAR O PRÓXIMO POST ---
