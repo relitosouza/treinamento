@@ -294,6 +294,48 @@ body, .reveal {
     background: #dbe7f2; 
     transform: translateY(-2px); 
 }
+/* =========================================
+   ADICIONE ISTO AO SEU ARQUIVO STYLE.CSS
+   (Pode ser antes da seção 4. MEDIA QUERIES)
+   ========================================= */
+
+/* Container da Imagem no Post */
+.post-image-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden; /* Garante que a borda arredondada corte a imagem se necessário */
+    border: 1px solid #eee;
+}
+
+/* Estilo para quando você inserir uma imagem REAL (tag <img>) */
+.post-image-container img {
+    width: 100%;     /* Ocupa toda a largura do post */
+    height: auto;    /* Mantém a proporção */
+    display: block;  /* Remove espaços extras abaixo da imagem */
+}
+
+/* Estilo para o PLACEHOLDER (o espaço cinza enquanto não tem imagem) */
+.image-placeholder {
+    width: 100%;
+    height: 220px; /* Altura fixa para o placeholder ficar visível */
+    background-color: #e4e6eb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #65676b;
+    font-weight: 500;
+    font-size: 0.9rem;
+    /* Padrão de fundo sutil para parecer área de imagem */
+    background-image: repeating-linear-gradient(45deg, #f0f2f5 0, #f0f2f5 10px, #e4e6eb 10px, #e4e6eb 20px);
+}
+
+.placeholder-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
 
 /* =========================================
    4. MEDIA QUERIES (RESPONSIVIDADE)
